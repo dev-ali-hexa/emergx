@@ -1,0 +1,13 @@
+# EmergeX - Backend Dependencies (Phase 0 Foundation & Phase 1 Database)
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.9.0
+pydantic-settings>=2.4.0
+python-dotenv>=1.0.0
+
+# Database Connectivity (Supabase PostgreSQL - Phase 1)
+supabase>=2.0.0
+
+# Testing & Verification
+pytest>=8.0.0
+httpx>=0.27.0
