@@ -88,10 +88,238 @@ export type SosLog = {
   createdAt: string;
 };
 
-type Store = { hospitals: Hospital[]; sos: SosLog[] };
+export type EmergencyContact = {
+  id: string;
+  name: string;
+  phone: string;
+  relation: string;
+};
 
-const KEY = "mergex-store-v1";
-const EMPTY: Store = { hospitals: [], sos: [] };
+export const DEFAULT_CONTACTS: EmergencyContact[] = [
+  { id: "c1", name: "Primary Family (Father)", phone: "9826012345", relation: "Father" },
+  { id: "c2", name: "Emergency Dispatch / Kin", phone: "9893098765", relation: "Sibling" },
+];
+
+export const SEED_HOSPITALS: Hospital[] = [
+  {
+    id: "hosp-indore-1",
+    name: "Bombay Hospital Indore",
+    area: "Ring Road, IDA Scheme 94, Indore",
+    phone: "+91 731 4771111",
+    lat: 22.7533,
+    lng: 75.8937,
+    beds: 18,
+    status: "AVAILABLE",
+    specialties: ["Cardiology", "Critical Care", "Neurology Stroke", "Trauma & Ortho"],
+    password: "staff",
+    departments: [
+      { code: "CARDIAC", name: "Cardiology & Cath Lab", beds: 6, totalBeds: 10, ready24x7: true, helpline: "+91 731 4771120", floor: "Ground Floor, Wing A" },
+      { code: "ICU", name: "Critical Care ICU", beds: 5, totalBeds: 12, ready24x7: true, helpline: "+91 731 4771130", floor: "1st Floor, ICU Block" },
+      { code: "STROKE", name: "Stroke & Neurology", beds: 4, totalBeds: 8, ready24x7: true, helpline: "+91 731 4771140", floor: "2nd Floor" },
+      { code: "TRAUMA", name: "Trauma & Orthopedics", beds: 3, totalBeds: 6, ready24x7: true, helpline: "+91 731 4771150", floor: "Ground Floor, Casualty" },
+      { code: "GENERAL", name: "General Emergency", beds: 8, totalBeds: 15, ready24x7: true, helpline: "+91 731 4771111", floor: "Emergency Ward" },
+    ],
+    resources: { oxygen: 48, ventilators: 12, otFree: 3, ambulances: 4, bloodUnits: 65 },
+  },
+  {
+    id: "hosp-indore-2",
+    name: "Medanta Super Specialty Hospital",
+    area: "AB Road, Near Plot 8, PU4, Indore",
+    phone: "+91 731 7111234",
+    lat: 22.7538,
+    lng: 75.8973,
+    beds: 14,
+    status: "AVAILABLE",
+    specialties: ["Cardiology", "Critical Care", "Pulmonary", "Trauma"],
+    password: "staff",
+    departments: [
+      { code: "CARDIAC", name: "Cardiology & Cath Lab", beds: 5, totalBeds: 8, ready24x7: true, helpline: "+91 731 7111240", floor: "Block B, Ground" },
+      { code: "ICU", name: "Critical Care ICU", beds: 6, totalBeds: 10, ready24x7: true, helpline: "+91 731 7111250", floor: "Level 1" },
+      { code: "TRAUMA", name: "Trauma & Orthopedics", beds: 3, totalBeds: 6, ready24x7: true, helpline: "+91 731 7111260", floor: "Casualty Gate 1" },
+      { code: "GENERAL", name: "General Emergency", beds: 6, totalBeds: 12, ready24x7: true, helpline: "+91 731 7111234", floor: "Ground Floor" },
+    ],
+    resources: { oxygen: 55, ventilators: 10, otFree: 2, ambulances: 5, bloodUnits: 50 },
+  },
+  {
+    id: "hosp-indore-3",
+    name: "Care CHL Hospital",
+    area: "AB Road, Near LIG Square, Indore",
+    phone: "+91 731 4774444",
+    lat: 22.7369,
+    lng: 75.8876,
+    beds: 12,
+    status: "AVAILABLE",
+    specialties: ["Cardiology", "Pediatric Emergency", "ICU", "Trauma"],
+    password: "staff",
+    departments: [
+      { code: "CARDIAC", name: "Cardiology & Cath Lab", beds: 4, totalBeds: 6, ready24x7: true, helpline: "+91 731 4774450", floor: "Cath Lab Wing" },
+      { code: "ICU", name: "Critical Care ICU", beds: 4, totalBeds: 8, ready24x7: true, helpline: "+91 731 4774460", floor: "ICU Complex" },
+      { code: "PEDIATRIC", name: "Pediatric Emergency", beds: 4, totalBeds: 6, ready24x7: true, helpline: "+91 731 4774470", floor: "Child Care Unit" },
+      { code: "GENERAL", name: "General Emergency", beds: 5, totalBeds: 10, ready24x7: true, helpline: "+91 731 4774444", floor: "Ground Floor" },
+    ],
+    resources: { oxygen: 38, ventilators: 8, otFree: 2, ambulances: 3, bloodUnits: 42 },
+  },
+  {
+    id: "hosp-indore-4",
+    name: "MY Hospital (Maharaja Yeshwantrao)",
+    area: "Sanyogitaganj, Indore",
+    phone: "108",
+    lat: 22.7164,
+    lng: 75.8706,
+    beds: 24,
+    status: "AVAILABLE",
+    specialties: ["Trauma & Orthopedics", "Burn Unit", "Maternity", "Critical Care"],
+    password: "staff",
+    departments: [
+      { code: "TRAUMA", name: "Trauma & Orthopedics", beds: 8, totalBeds: 14, ready24x7: true, helpline: "108", floor: "Trauma Centre Gate 1" },
+      { code: "BURN", name: "Burn Unit", beds: 5, totalBeds: 8, ready24x7: true, helpline: "108", floor: "Burn Ward 3rd Floor" },
+      { code: "MATERNITY", name: "Maternity & Labour Room", beds: 6, totalBeds: 10, ready24x7: true, helpline: "108", floor: "MCH Wing" },
+      { code: "ICU", name: "Critical Care ICU", beds: 5, totalBeds: 12, ready24x7: true, helpline: "108", floor: "Central ICU" },
+      { code: "GENERAL", name: "General Emergency", beds: 15, totalBeds: 30, ready24x7: true, helpline: "108", floor: "Casualty Ground" },
+    ],
+    resources: { oxygen: 70, ventilators: 15, otFree: 4, ambulances: 8, bloodUnits: 90 },
+  },
+  {
+    id: "hosp-indore-5",
+    name: "Apollo Hospitals Indore",
+    area: "Sector D, Scheme No 74C, Vijay Nagar, Indore",
+    phone: "+91 731 2445566",
+    lat: 22.7580,
+    lng: 75.8965,
+    beds: 15,
+    status: "AVAILABLE",
+    specialties: ["Cardiology", "Stroke & Neurology", "ICU", "Trauma"],
+    password: "staff",
+    departments: [
+      { code: "CARDIAC", name: "Cardiology & Cath Lab", beds: 5, totalBeds: 8, ready24x7: true, helpline: "+91 731 2445570", floor: "Tower 1, Level 2" },
+      { code: "STROKE", name: "Stroke & Neurology", beds: 4, totalBeds: 6, ready24x7: true, helpline: "+91 731 2445580", floor: "Neuro Care 3rd Floor" },
+      { code: "ICU", name: "Critical Care ICU", beds: 6, totalBeds: 10, ready24x7: true, helpline: "+91 731 2445590", floor: "ICU Wing" },
+      { code: "GENERAL", name: "General Emergency", beds: 6, totalBeds: 12, ready24x7: true, helpline: "+91 731 2445566", floor: "Ground Emergency" },
+    ],
+    resources: { oxygen: 45, ventilators: 9, otFree: 3, ambulances: 4, bloodUnits: 55 },
+  },
+  {
+    id: "hosp-indore-6",
+    name: "Choithram Hospital & Research Centre",
+    area: "Manik Bagh Road, Indore",
+    phone: "+91 731 2470001",
+    lat: 22.6958,
+    lng: 75.8482,
+    beds: 11,
+    status: "AVAILABLE",
+    specialties: ["Burn Unit", "Pediatric Emergency", "Critical Care", "General Emergency"],
+    password: "staff",
+    departments: [
+      { code: "BURN", name: "Burn Unit", beds: 4, totalBeds: 6, ready24x7: true, helpline: "+91 731 2470010", floor: "Dedicated Burn Centre" },
+      { code: "PEDIATRIC", name: "Pediatric Emergency", beds: 3, totalBeds: 6, ready24x7: true, helpline: "+91 731 2470020", floor: "Pediatric ICU" },
+      { code: "ICU", name: "Critical Care ICU", beds: 4, totalBeds: 8, ready24x7: true, helpline: "+91 731 2470030", floor: "Main ICU 2nd Floor" },
+      { code: "GENERAL", name: "General Emergency", beds: 7, totalBeds: 14, ready24x7: true, helpline: "+91 731 2470001", floor: "Ground Floor" },
+    ],
+    resources: { oxygen: 34, ventilators: 7, otFree: 2, ambulances: 3, bloodUnits: 38 },
+  },
+  {
+    id: "hosp-indore-7",
+    name: "Shalby Super Speciality Hospital",
+    area: "R.S. Bhandari Marg, Janjeerwala Square, Indore",
+    phone: "+91 731 6677000",
+    lat: 22.7277,
+    lng: 75.8791,
+    beds: 9,
+    status: "AVAILABLE",
+    specialties: ["Trauma & Orthopedics", "Cardiology", "ICU"],
+    password: "staff",
+    departments: [
+      { code: "TRAUMA", name: "Trauma & Orthopedics", beds: 4, totalBeds: 6, ready24x7: true, helpline: "+91 731 6677015", floor: "Ground Floor Casualty" },
+      { code: "CARDIAC", name: "Cardiology & Cath Lab", beds: 2, totalBeds: 4, ready24x7: true, helpline: "+91 731 6677025", floor: "Cardiac Wing" },
+      { code: "ICU", name: "Critical Care ICU", beds: 3, totalBeds: 6, ready24x7: true, helpline: "+91 731 6677035", floor: "1st Floor ICU" },
+      { code: "GENERAL", name: "General Emergency", beds: 5, totalBeds: 10, ready24x7: true, helpline: "+91 731 6677000", floor: "Reception Level" },
+    ],
+    resources: { oxygen: 28, ventilators: 5, otFree: 2, ambulances: 2, bloodUnits: 30 },
+  },
+  {
+    id: "hosp-indore-8",
+    name: "Greater Kailash Hospital",
+    area: "Old Palasia, Indore",
+    phone: "+91 731 4055555",
+    lat: 22.7231,
+    lng: 75.8874,
+    beds: 7,
+    status: "AVAILABLE",
+    specialties: ["Maternity & Labour Room", "Pediatric Emergency", "ICU"],
+    password: "staff",
+    departments: [
+      { code: "MATERNITY", name: "Maternity & Labour Room", beds: 3, totalBeds: 5, ready24x7: true, helpline: "+91 731 4055560", floor: "Labour Suite 2nd Floor" },
+      { code: "PEDIATRIC", name: "Pediatric Emergency", beds: 2, totalBeds: 4, ready24x7: true, helpline: "+91 731 4055570", floor: "NICU Block" },
+      { code: "ICU", name: "Critical Care ICU", beds: 2, totalBeds: 5, ready24x7: true, helpline: "+91 731 4055580", floor: "1st Floor" },
+      { code: "GENERAL", name: "General Emergency", beds: 4, totalBeds: 8, ready24x7: true, helpline: "+91 731 4055555", floor: "Ground Floor" },
+    ],
+    resources: { oxygen: 22, ventilators: 4, otFree: 1, ambulances: 2, bloodUnits: 25 },
+  },
+  {
+    id: "hosp-ujjain-9",
+    name: "Tejankar Hospital Ujjain",
+    area: "Freeganj, Ujjain",
+    phone: "+91 734 2511222",
+    lat: 23.1793,
+    lng: 75.7925,
+    beds: 8,
+    status: "AVAILABLE",
+    specialties: ["Trauma & Orthopedics", "Cardiology", "ICU Critical Care"],
+    password: "staff",
+    departments: [
+      { code: "TRAUMA", name: "Trauma & Orthopedics", beds: 3, totalBeds: 5, ready24x7: true, helpline: "+91 734 2511230", floor: "Ground Floor Emergency" },
+      { code: "CARDIAC", name: "Cardiology & Cath Lab", beds: 2, totalBeds: 4, ready24x7: true, helpline: "+91 734 2511240", floor: "1st Floor ICU" },
+      { code: "ICU", name: "Critical Care ICU", beds: 3, totalBeds: 6, ready24x7: true, helpline: "+91 734 2511250", floor: "ICU Ward" },
+      { code: "GENERAL", name: "General Emergency", beds: 6, totalBeds: 12, ready24x7: true, helpline: "+91 734 2511222", floor: "Emergency Desk" },
+    ],
+    resources: { oxygen: 25, ventilators: 5, otFree: 2, ambulances: 3, bloodUnits: 22 },
+  },
+  {
+    id: "hosp-ujjain-10",
+    name: "District Civil Hospital Ujjain",
+    area: "Agar Road, Ujjain",
+    phone: "108",
+    lat: 23.1895,
+    lng: 75.7765,
+    beds: 16,
+    status: "AVAILABLE",
+    specialties: ["Trauma & Orthopedics", "Maternity", "Burn Unit", "Critical Care"],
+    password: "staff",
+    departments: [
+      { code: "TRAUMA", name: "Trauma & Orthopedics", beds: 5, totalBeds: 10, ready24x7: true, helpline: "108", floor: "Trauma Wing Gate 2" },
+      { code: "MATERNITY", name: "Maternity & Labour Room", beds: 4, totalBeds: 8, ready24x7: true, helpline: "108", floor: "MCH Complex" },
+      { code: "BURN", name: "Burn Unit", beds: 3, totalBeds: 5, ready24x7: true, helpline: "108", floor: "Burn Unit 2nd Floor" },
+      { code: "ICU", name: "Critical Care ICU", beds: 4, totalBeds: 8, ready24x7: true, helpline: "108", floor: "Main ICU" },
+      { code: "GENERAL", name: "General Emergency", beds: 10, totalBeds: 20, ready24x7: true, helpline: "108", floor: "Casualty" },
+    ],
+    resources: { oxygen: 36, ventilators: 6, otFree: 2, ambulances: 5, bloodUnits: 45 },
+  },
+];
+
+export const LOCATION_PRESETS = [
+  { name: "Indore (Vijay Nagar)", lat: 22.7533, lng: 75.8937 },
+  { name: "Indore (Rajwada Square)", lat: 22.7196, lng: 75.8577 },
+  { name: "Indore (Bhawarkua)", lat: 22.6926, lng: 75.8676 },
+  { name: "Ujjain (Mahakal Temple)", lat: 23.1827, lng: 75.7682 },
+  { name: "Ujjain (Freeganj)", lat: 23.1793, lng: 75.7925 },
+];
+
+export const SYMPTOM_PRESETS = [
+  "Bhaiya chest pain ho raha hai aur saans nahi aa rahi",
+  "Road accident hua hai bahut khoon beh raha hai fracture hai",
+  "Achanak behosh ho gaye hain stroke ka lag raha hai",
+  "Maternity delivery labour pain shuru ho gaya hai",
+  "Chhote bachhe ko bahut tez bukhar aur ulti ho rahi hai",
+];
+
+type Store = {
+  hospitals: Hospital[];
+  sos: SosLog[];
+  contacts: EmergencyContact[];
+};
+
+const KEY = "emergx-store-v2";
+const EMPTY: Store = { hospitals: SEED_HOSPITALS, sos: [], contacts: DEFAULT_CONTACTS };
 
 export function defaultDepartments(icuBeds = 0): Department[] {
   return [
@@ -140,14 +368,25 @@ function read(): Store {
   if (typeof window === "undefined") return EMPTY;
   try {
     const raw = window.localStorage.getItem(KEY);
-    if (!raw) return EMPTY;
+    if (!raw) {
+      // Auto-initialize with seed data
+      write(EMPTY);
+      return EMPTY;
+    }
     const parsed = JSON.parse(raw) as any;
+    const hospitals = Array.isArray(parsed.hospitals) && parsed.hospitals.length
+      ? parsed.hospitals.map(normalizeHospital)
+      : SEED_HOSPITALS;
+    const contacts = Array.isArray(parsed.contacts) && parsed.contacts.length
+      ? parsed.contacts
+      : DEFAULT_CONTACTS;
     return {
-      hospitals: (parsed.hospitals ?? []).map(normalizeHospital),
+      hospitals,
       sos: (parsed.sos ?? []).map((s: any) => ({
         ...s,
         deptCode: (s.deptCode ?? "GENERAL") as DeptCode,
       })),
+      contacts,
     };
   } catch {
     return EMPTY;
@@ -287,6 +526,24 @@ export function useStore() {
     [update],
   );
 
+  const addContact = useCallback(
+    (c: Omit<EmergencyContact, "id">) =>
+      update((s) => ({
+        ...s,
+        contacts: [...s.contacts, { ...c, id: crypto.randomUUID() }],
+      })),
+    [update],
+  );
+
+  const removeContact = useCallback(
+    (id: string) =>
+      update((s) => ({
+        ...s,
+        contacts: s.contacts.filter((c) => c.id !== id),
+      })),
+    [update],
+  );
+
   return {
     ...store,
     addHospital,
@@ -297,6 +554,8 @@ export function useStore() {
     removeDepartment,
     removeHospital,
     addSos,
+    addContact,
+    removeContact,
   };
 }
 
@@ -403,12 +662,41 @@ export function urgencyLabel(u: Urgency) {
   return u;
 }
 
+export function urgencyBadge(u: Urgency) {
+  switch (u) {
+    case "CRITICAL":
+      return {
+        label: "CRITICAL EMERGENCY",
+        short: "CRITICAL",
+        icon: "🔴",
+        className:
+          "border-red-600/80 bg-red-950/80 text-red-300 font-extrabold shadow-md shadow-red-950/50 animate-pulse ring-1 ring-red-500/50",
+      };
+    case "HIGH":
+      return {
+        label: "HIGH URGENCY",
+        short: "HIGH",
+        icon: "🟡",
+        className:
+          "border-amber-500/80 bg-amber-950/80 text-amber-300 font-bold ring-1 ring-amber-500/40",
+      };
+    case "MODERATE":
+      return {
+        label: "MODERATE CARE",
+        short: "MODERATE",
+        icon: "🟢",
+        className:
+          "border-emerald-500/80 bg-emerald-950/80 text-emerald-300 font-semibold ring-1 ring-emerald-500/40",
+      };
+  }
+}
+
+export function urgencyIcon(u: Urgency) {
+  return urgencyBadge(u).icon;
+}
+
 export function urgencyClass(u: Urgency) {
-  return u === "CRITICAL"
-    ? "bg-destructive/10 text-destructive"
-    : u === "HIGH"
-      ? "bg-accent text-accent-foreground"
-      : "bg-secondary text-secondary-foreground";
+  return urgencyBadge(u).className;
 }
 
 export function distanceKm(a: { lat: number; lng: number }, b: { lat: number; lng: number }) {
