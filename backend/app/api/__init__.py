@@ -15,4 +15,3 @@ __all__ = [
     "triage_router",
     "blood_banks_router",
 ]
-

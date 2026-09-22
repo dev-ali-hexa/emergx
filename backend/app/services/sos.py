@@ -71,4 +71,3 @@ class SOSService:
         except Exception as err:
             logger.error("Failed to query recent SOS logs from database: %s", err)
             raise DatabaseServiceError("Failed to fetch SOS logs from database.") from err
-

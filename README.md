@@ -10,16 +10,20 @@ EmergX is an emergency healthcare navigation platform designed to eliminate the 
   - 1-Click Google Maps turn-by-turn navigation
   - 1-Click Family SOS dispatch
   - Dedicated Hospital Desk and Master Admin management panels
+  - Blood Bank Finder with live contact and blood group filtering
+  - Golden Hour First-Aid Action Guide
 - **Backend**: FastAPI (Python 3.12+)
   - Emergency orchestration endpoint (`/api/emergency`)
   - AI Triage parser with Hinglish support (`/api/triage`)
   - PostGIS geospatial facility discovery with geodesic Haversine fallback (`/api/facilities`)
+  - Blood Bank discovery endpoint (`/api/blood-banks`)
   - Emergency SOS audit log dispatcher (`/api/sos`)
   - Health & connectivity probes (`/health`, `/health/db`)
 
 ## Quickstart
 
 ### 1. Install Dependencies
+
 ```bash
 # Frontend
 npm install
@@ -49,6 +53,11 @@ npm run dev:backend
 ```
 
 ### 3. Running Backend Tests
+
 ```bash
+npm run test:backend
+# Or directly:
 .\backend\.venv\Scripts\pytest backend\tests
 ```
+
+See `backend/README.md` for full backend details.

@@ -97,4 +97,3 @@ class FacilityService:
         except Exception as err:
             logger.error("Failed to query all hospitals: %s", err)
             raise DatabaseServiceError("Failed to fetch hospital registry.") from err
-

@@ -37,7 +37,6 @@ app.include_router(triage_router)
 app.include_router(blood_banks_router)
 
 
-
 @app.get("/", tags=["Root"])
 async def root():
     """

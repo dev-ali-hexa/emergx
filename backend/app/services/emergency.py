@@ -55,12 +55,12 @@ class EmergencyService:
         )
 
         logger.info(
-            "Orchestrating emergency navigation: lat=%s, lng=%s, urgency=%s, specialty=%s, emergency_only=%s",
-            request.latitude,
-            request.longitude,
+            "Orchestrating emergency navigation: urgency=%s, specialty=%s, emergency_only=%s, radius_km=%s, limit=%s",
             request.urgency.value,
             request.specialty,
             emergency_only,
+            request.radius_km,
+            request.limit,
         )
 
         # Delegate directly to existing FacilityService — zero duplicated PostGIS queries

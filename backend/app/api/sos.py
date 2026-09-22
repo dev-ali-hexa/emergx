@@ -86,4 +86,3 @@ def get_recent_sos_incidents(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An unexpected error occurred while fetching SOS logs.",
         ) from err
-
