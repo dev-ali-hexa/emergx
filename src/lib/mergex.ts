@@ -670,7 +670,7 @@ export function urgencyBadge(u: Urgency) {
         short: "CRITICAL",
         icon: "🔴",
         className:
-          "border-red-600/80 bg-red-950/80 text-red-300 font-extrabold shadow-md shadow-red-950/50 animate-pulse ring-1 ring-red-500/50",
+          "border-red-500 bg-red-50 text-red-700 dark:bg-red-950/80 dark:text-red-300 font-extrabold shadow-sm animate-pulse ring-1 ring-red-400/60",
       };
     case "HIGH":
       return {
@@ -678,7 +678,7 @@ export function urgencyBadge(u: Urgency) {
         short: "HIGH",
         icon: "🟡",
         className:
-          "border-amber-500/80 bg-amber-950/80 text-amber-300 font-bold ring-1 ring-amber-500/40",
+          "border-amber-500 bg-amber-50 text-amber-800 dark:bg-amber-950/80 dark:text-amber-300 font-bold ring-1 ring-amber-400/50",
       };
     case "MODERATE":
       return {
@@ -686,7 +686,7 @@ export function urgencyBadge(u: Urgency) {
         short: "MODERATE",
         icon: "🟢",
         className:
-          "border-emerald-500/80 bg-emerald-950/80 text-emerald-300 font-semibold ring-1 ring-emerald-500/40",
+          "border-emerald-500 bg-emerald-50 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 font-semibold ring-1 ring-emerald-500/40",
       };
   }
 }

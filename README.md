@@ -1,29 +1,54 @@
-# Welcome to your Lovable project
+# EmergX — Emergency Healthcare & Assistive Navigation
 
-This project was built with [Lovable](https://lovable.dev).
+EmergX is an emergency healthcare navigation platform designed to eliminate the critical delays during the "Golden Hour" of medical distress.
 
-## Build with Lovable
+## Architecture
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+- **Frontend**: TanStack Start / React 19 / Tailwind CSS 4
+  - Hinglish voice and text emergency triage
+  - Nearest hospital ICU bed availability counters
+  - 1-Click Google Maps turn-by-turn navigation
+  - 1-Click Family SOS dispatch
+  - Dedicated Hospital Desk and Master Admin management panels
+- **Backend**: FastAPI (Python 3.12+)
+  - Emergency orchestration endpoint (`/api/emergency`)
+  - AI Triage parser with Hinglish support (`/api/triage`)
+  - PostGIS geospatial facility discovery with geodesic Haversine fallback (`/api/facilities`)
+  - Emergency SOS audit log dispatcher (`/api/sos`)
+  - Health & connectivity probes (`/health`, `/health/db`)
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+## Quickstart
 
-## Development
+### 1. Install Dependencies
+```bash
+# Frontend
+npm install
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+# Backend
+cd backend
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+cd ..
 ```
 
-## Built with
+### 2. Run In Development
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+Run both Frontend and Backend concurrently:
+```bash
+npm run dev:all
+```
+
+Or run individually:
+```bash
+# Frontend (http://localhost:3000)
+npm run dev
+
+# Backend (http://localhost:8000)
+npm run dev:backend
+```
+
+### 3. Running Backend Tests
+```bash
+.\backend\.venv\Scripts\pytest backend\tests
+```

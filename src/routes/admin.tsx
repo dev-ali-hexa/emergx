@@ -19,12 +19,12 @@ import {
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Admin Panel — MergeX" },
+      { title: "Admin Panel — EmergX" },
       {
         name: "description",
-        content: "MergeX admin: hospitals add karein, ICU beds aur status manage karein, saare SOS alerts dekhein.",
+        content: "EmergX admin: hospitals add karein, ICU beds aur status manage karein, saare SOS alerts dekhein.",
       },
-      { property: "og:title", content: "Admin Panel — MergeX" },
+      { property: "og:title", content: "Admin Panel — EmergX" },
       {
         property: "og:description",
         content: "Hospital registry, bed management aur full SOS alert feed ek jagah.",
