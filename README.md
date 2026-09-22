@@ -1,16 +1,18 @@
-# Welcome to your Lovable project
+# EmergeX — Emergency Healthcare Navigator
 
-This project was built with [Lovable](https://lovable.dev).
+EmergeX is an emergency healthcare navigation platform designed to triage patient distress, identify nearby capable facilities, and dispatch urgent SOS alerts.
 
-## Build with Lovable
+This project is connected to [Lovable](https://lovable.dev) for frontend development and sync.
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+## Project Structure
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+```
+emergx/
+├── backend/       # Python / FastAPI backend service
+└── frontend app   # TanStack Start / React frontend
+```
 
-## Development
+## Frontend Development
 
 Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
 
@@ -21,9 +23,17 @@ npm i
 npm run dev
 ```
 
-## Built with
+## Backend Quick Start
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+```bash
+python -m venv backend/.venv
+# Activate virtual environment
+pip install -r backend/requirements.txt
+uvicorn app.main:app --app-dir backend --reload --port 8000
+```
+
+Verify health:
+
+`curl http://127.0.0.1:8000/health` -> `{"status":"ok","service":"emergex-backend"}`
+
+See `backend/README.md` for full backend details.
